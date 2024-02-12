@@ -6,7 +6,7 @@ library(tidyverse)
 import_tbl<- read_delim("../data/week4.dat", delim="-",col_names = c("casenum","parnum", "stimver", "datadate", "qs"))
 glimpse(import_tbl)
 wide_tbl<- separate(import_tbl,qs,c("q1","q2","q3","q4","q5"))
-wide_tbl[,5:9]<-sapply(wide_tbl[,5:9],as.integer)
+wide_tbl[,5:9]<-sapply(wide_tbl[,5:9],as.integer) # don't do [,5:9] because things don't stay that way. should use [,paste0("q",1:5)]
 wide_tbl$datadate<- mdy_hms(wide_tbl$datadate) #thank god this worked, I wasn't going to spend an hour trying different formats in posixct
 wide_tbl[,5:9]<-replace(wide_tbl[,5:9],wide_tbl[,5:9]==0,NA)
 wide_tbl<-drop_na(wide_tbl,q2)
